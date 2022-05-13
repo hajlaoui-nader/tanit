@@ -61,3 +61,18 @@ and return to your shell.
 
 ## Run
 run the docker-compose before launch `Main.scala`
+
+## Tests
+
+To run Unit Tests:
+
+```
+sbt test
+```
+
+To run Integration Tests we need to run both `PostgreSQL` and `Redis`:
+
+```
+docker-compose up
+sbt it:test
+docker-compose down

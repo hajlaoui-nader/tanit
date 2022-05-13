@@ -69,6 +69,7 @@ lazy val core = (project in file("modules/core"))
       Libraries.derevoCats,
       Libraries.derevoCirce,
       Libraries.fs2,
+      Libraries.fs2Kafka,
       Libraries.http4sDsl,
       Libraries.http4sServer,
       Libraries.http4sClient,
@@ -88,3 +89,5 @@ lazy val core = (project in file("modules/core"))
       Libraries.squants
     )
   )
+
+addCommandAlias("runLinter", ";scalafixAll --rules OrganizeImports")

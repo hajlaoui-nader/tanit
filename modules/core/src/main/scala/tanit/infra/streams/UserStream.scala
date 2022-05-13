@@ -19,7 +19,7 @@ class UserStream(kafkaConfig: KafkaConfig, topic: String) {
       .stream(consumerSettings)
       .subscribeTo(topic)
       .records
-      .mapAsync(1) { committable =>
+      .mapAsync(2) { committable =>
         processRecord(committable.record)
       }
 

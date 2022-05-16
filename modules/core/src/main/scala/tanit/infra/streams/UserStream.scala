@@ -2,19 +2,19 @@ package tanit.infra.streams
 
 import tanit.infra.config.KafkaConfig
 
-import cats.effect.IO
 import fs2.Stream
 import fs2.kafka._
+import cats.effect.kernel.Async
 
-class UserStream(kafkaConfig: KafkaConfig, topic: String) {
+class UserStream[F[_]: Async](kafkaConfig: KafkaConfig, topic: String) {
 
-  private val consumerSettings: ConsumerSettings[IO, String, String] = ConsumerSettings[IO, String, String]
+  private val consumerSettings: ConsumerSettings[F, String, String] = ConsumerSettings[F, String, String]
     .withAutoOffsetReset(AutoOffsetReset.Earliest)
     .withBootstrapServers(kafkaConfig.bootstrapServers.mkString(","))
     // .withProperties(properties)
     .withGroupId(kafkaConfig.groupId)
 
-  def mkStream: Stream[IO, Unit] =
+  def mkStream: Stream[F, Unit] =
     KafkaConsumer
       .stream(consumerSettings)
       .subscribeTo(topic)
@@ -23,6 +23,6 @@ class UserStream(kafkaConfig: KafkaConfig, topic: String) {
         processRecord(committable.record)
       }
 
-  private def processRecord(record: ConsumerRecord[String, String]): IO[Unit] =
-    IO(println(s"Received record: ${record.value}"))
+  private def processRecord(record: ConsumerRecord[String, String]): F[Unit] =
+    Async[F].delay(println(s"Received record: ${record.value}"))
 }

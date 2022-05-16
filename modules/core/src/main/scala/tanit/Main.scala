@@ -5,6 +5,7 @@ import tanit.infra.streams.UserStream
 
 import cats.effect.{ IO, IOApp }
 import org.typelevel.log4cats.slf4j.Slf4jLogger
+
 object Main extends IOApp.Simple {
   implicit val loggerr = Slf4jLogger.getLogger[IO]
 

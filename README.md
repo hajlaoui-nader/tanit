@@ -76,6 +76,7 @@ To run Integration Tests we need to run both `PostgreSQL` and `Redis`:
 docker-compose up
 sbt it:test
 docker-compose down
+````
 
 ## Build Docker image
 

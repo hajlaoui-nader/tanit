@@ -15,6 +15,7 @@ class UserStream[F[_]: Async](kafkaConfig: KafkaConfig, topic: String) {
     // .withProperties(properties)
     .withGroupId(kafkaConfig.groupId)
 
+  // TODO [nh] add commit offset
   def mkStream: Stream[F, Unit] =
     KafkaConsumer
       .stream(consumerSettings)

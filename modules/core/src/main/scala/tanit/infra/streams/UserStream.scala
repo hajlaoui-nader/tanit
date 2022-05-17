@@ -8,6 +8,7 @@ import cats.effect.kernel.Async
 
 class UserStream[F[_]: Async](kafkaConfig: KafkaConfig, topic: String) {
 
+  // TODO [nh] add properties to config
   private val consumerSettings: ConsumerSettings[F, String, String] = ConsumerSettings[F, String, String]
     .withAutoOffsetReset(AutoOffsetReset.Earliest)
     .withBootstrapServers(kafkaConfig.bootstrapServers.mkString(","))

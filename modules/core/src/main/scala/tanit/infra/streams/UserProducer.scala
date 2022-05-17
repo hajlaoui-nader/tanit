@@ -21,6 +21,7 @@ class UserProducer[F[_]: Async](kafkaConfig: KafkaConfig, topic: String) {
         val key    = UUID.randomUUID().toString
         val value  = UUID.randomUUID().toString
         val record = ProducerRecord(topic, key, value)
+        println(s"going to produce $record")
         producer.produce(ProducerRecords.one(record))
       }
 

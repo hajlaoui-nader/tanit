@@ -24,6 +24,8 @@ object Main extends IOApp.Simple {
         .concurrently(producerEveryNSeconds)
         .compile
         .drain
+      // _ <- new UserStream[IO](kafkaConfig, usersTopic, kafkaProperties).mkStream.compile.drain.start
+      // _ <- producerEveryNSeconds.compile.drain
     } yield ()
   }
 

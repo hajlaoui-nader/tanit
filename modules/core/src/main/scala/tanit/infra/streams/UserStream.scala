@@ -1,11 +1,13 @@
 package tanit.infra.streams
 
+import scala.concurrent.duration._
+
 import tanit.infra.config.KafkaConfig
+
+import cats.effect.kernel.Async
 import cats.implicits._
 import fs2.Stream
 import fs2.kafka._
-import cats.effect.kernel.Async
-import scala.concurrent.duration._
 
 class UserStream[F[_]: Async](kafkaConfig: KafkaConfig, topic: String, properties: Map[String, String]) {
 

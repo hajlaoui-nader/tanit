@@ -1,12 +1,11 @@
 package tanit.infra.streams
 
-import cats.effect.kernel.Async
-import tanit.infra.config.KafkaConfig
-import fs2.kafka.ProducerSettings
-import fs2.kafka.KafkaProducer
 import java.util.UUID
-import fs2.kafka.ProducerRecord
-import fs2.kafka.ProducerRecords
+
+import tanit.infra.config.KafkaConfig
+
+import cats.effect.kernel.Async
+import fs2.kafka._
 
 class UserProducer[F[_]: Async](kafkaConfig: KafkaConfig, topic: String) {
 

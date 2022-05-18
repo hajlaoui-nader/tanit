@@ -1,12 +1,12 @@
 package tanit
 
+import scala.concurrent.duration._
+
 import tanit.infra.config.KafkaConfig
-import tanit.infra.streams.UserStream
+import tanit.infra.streams.{UserProducer, UserStream}
 
 import cats.effect.{ IO, IOApp }
 import org.typelevel.log4cats.slf4j.Slf4jLogger
-import tanit.infra.streams.UserProducer
-import scala.concurrent.duration._
 
 object Main extends IOApp.Simple {
   implicit val loggerr = Slf4jLogger.getLogger[IO]

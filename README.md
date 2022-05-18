@@ -84,7 +84,7 @@ docker-compose down
 sbt docker:publishLocal
 ```
 
-To run our application using our Docker image, run the following command:
+To run the application using our Docker image, run the following command:
 
 ```
 cd /app

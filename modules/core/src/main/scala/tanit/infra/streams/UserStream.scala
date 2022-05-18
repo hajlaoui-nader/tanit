@@ -1,21 +1,21 @@
 package tanit.infra.streams
 
 import tanit.infra.config.KafkaConfig
-
+import cats.implicits._
 import fs2.Stream
 import fs2.kafka._
 import cats.effect.kernel.Async
+import scala.concurrent.duration._
 
-class UserStream[F[_]: Async](kafkaConfig: KafkaConfig, topic: String) {
+class UserStream[F[_]: Async](kafkaConfig: KafkaConfig, topic: String, properties: Map[String, String]) {
 
-  // TODO [nh] add properties to config
   private val consumerSettings: ConsumerSettings[F, String, String] = ConsumerSettings[F, String, String]
     .withAutoOffsetReset(AutoOffsetReset.Earliest)
     .withBootstrapServers(kafkaConfig.bootstrapServers.mkString(","))
-    // .withProperties(properties)
+    .withProperties(properties)
     .withGroupId(kafkaConfig.groupId)
 
-  // TODO [nh] add commit offset
+  // TODO [nh] commit batch configuration
   def mkStream: Stream[F, Unit] =
     KafkaConsumer
       .stream(consumerSettings)
@@ -23,7 +23,9 @@ class UserStream[F[_]: Async](kafkaConfig: KafkaConfig, topic: String) {
       .records
       .mapAsync(2) { committable =>
         processRecord(committable.record)
+          .as(committable.offset)
       }
+      .through(commitBatchWithin(500, 15.seconds))
 
   private def processRecord(record: ConsumerRecord[String, String]): F[Unit] =
     Async[F].delay(println(s"Received record: ${record.value}"))

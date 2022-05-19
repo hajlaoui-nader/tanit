@@ -27,7 +27,7 @@ class UserStream[F[_]: Async](kafkaConfig: KafkaConfig, topic: String, propertie
         processRecord(committable.record)
           .as(committable.offset)
       }
-      .through(commitBatchWithin(500, 15.seconds))
+      .through(commitBatchWithin(500, 5.seconds))
 
   private def processRecord(record: ConsumerRecord[String, String]): F[Unit] =
     Async[F].delay(println(s"Received record: ${record.value}"))

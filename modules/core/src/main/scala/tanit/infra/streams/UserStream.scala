@@ -18,7 +18,7 @@ class UserStream[F[_]: Async](kafkaConfig: KafkaConfig, topic: String, propertie
     .withGroupId(kafkaConfig.groupId)
 
   // TODO [nh] commit batch configuration
-  def mkStream: Stream[F, Unit] =
+  def mkStream: Stream[F, Unit] = {
     KafkaConsumer
       .stream(consumerSettings)
       .subscribeTo(topic)
@@ -28,6 +28,7 @@ class UserStream[F[_]: Async](kafkaConfig: KafkaConfig, topic: String, propertie
           .as(committable.offset)
       }
       .through(commitBatchWithin(500, 5.seconds))
+  }
 
   private def processRecord(record: ConsumerRecord[String, String]): F[Unit] =
     Async[F].delay(println(s"Received record: ${record.value}"))

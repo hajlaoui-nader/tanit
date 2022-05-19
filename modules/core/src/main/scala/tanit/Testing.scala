@@ -5,7 +5,7 @@ import java.util.concurrent.Executors
 import scala.concurrent.ExecutionContext
 import scala.util.Random
 
-import cats.effect.{IO, IOApp}
+import cats.effect.{ IO, IOApp }
 import fs2.Stream
 
 object Testing extends IOApp.Simple {

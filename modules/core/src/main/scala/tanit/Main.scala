@@ -7,14 +7,14 @@ import tanit.infra.streams.{ UserProducer, UserStream }
 
 import cats.Monad
 import cats.effect.{ IO, IOApp }
-import com.comcast.ip4s.{Host, Port}
+import com.comcast.ip4s.{ Host, Port }
 import org.http4s.dsl.Http4sDsl
 import org.http4s.ember.server.EmberServerBuilder
 import org.http4s.implicits._
 import org.http4s.server.Router
 import org.http4s.server.defaults.Banner
 import org.http4s.server.middleware._
-import org.http4s.{HttpApp, HttpRoutes}
+import org.http4s.{ HttpApp, HttpRoutes }
 import org.typelevel.log4cats.slf4j.Slf4jLogger
 
 object Main extends IOApp.Simple {

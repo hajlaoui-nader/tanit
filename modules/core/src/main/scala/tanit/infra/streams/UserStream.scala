@@ -8,8 +8,9 @@ import cats.effect.kernel.Async
 import cats.implicits._
 import fs2.Stream
 import fs2.kafka._
+import org.typelevel.log4cats.Logger
 
-class UserStream[F[_]: Async](kafkaConfig: KafkaConfig, topic: String, properties: Map[String, String]) {
+class UserStream[F[_]: Async: Logger](kafkaConfig: KafkaConfig, topic: String, properties: Map[String, String]) {
 
   private val consumerSettings: ConsumerSettings[F, String, String] = ConsumerSettings[F, String, String]
     .withAutoOffsetReset(AutoOffsetReset.Earliest)
@@ -31,5 +32,5 @@ class UserStream[F[_]: Async](kafkaConfig: KafkaConfig, topic: String, propertie
   }
 
   private def processRecord(record: ConsumerRecord[String, String]): F[Unit] =
-    Async[F].delay(println(s"Received record: ${record.value}"))
+    Logger[F].info(s"Received record: ${record.value}")
 }

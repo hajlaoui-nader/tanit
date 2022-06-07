@@ -56,7 +56,7 @@ object Main extends IOApp.Simple {
       .build
       .evalTap(_ => logger.info(s"\n${Banner.mkString("\n")}\nHTTP Server started"))
 
-    fs2.Stream
+    logger.info("starting up") *> fs2.Stream
       .resource(mkServer)
       .flatMap { _ =>
         new UserStream[IO](kafkaConfig, usersTopic, kafkaProperties).mkStream

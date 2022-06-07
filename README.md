@@ -58,7 +58,12 @@ and return to SBT interactive mode.
 Press `Ctrl+D` again to quit SBT interactive mode
 and return to your shell.
 
+## Lint
+run `scalafix` linter before pushing to GitHub
 
+```bash
+sbt runLinter
+```
 ## Run
 run the docker-compose before launch `Main.scala`
 
@@ -90,3 +95,8 @@ To run the application using our Docker image, run the following command:
 cd /app
 docker-compose up
 ```
+
+### TODO
+- fix logger
+- extract http in seperate classes and package
+- opensearch integration

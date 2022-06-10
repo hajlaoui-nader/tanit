@@ -2,12 +2,12 @@ package tanit
 
 import cats.effect.IOApp
 import cats.effect.IO
-import org.typelevel.log4cats.slf4j.Slf4jLogger
-import org.typelevel.log4cats.Logger
+import org.typelevel.log4cats._
+import org.typelevel.log4cats.slf4j._
 
 object TestLogger extends IOApp.Simple {
 
-  implicit val logger = Slf4jLogger.getLogger[IO]
+  val logger = LoggerFactory[IO].getLogger
 
-  override def run: IO[Unit] = Logger[IO].error("wtf really") *> IO.println("end")
+  override def run: IO[Unit] = logger.error("wtf really") *> IO.println("end")
 }

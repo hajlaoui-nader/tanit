@@ -18,7 +18,6 @@ class UserStream[F[_]: Async: Logger](kafkaConfig: KafkaConfig, topic: String, p
     .withProperties(properties)
     .withGroupId(kafkaConfig.groupId)
 
-  // TODO [nh] commit batch configuration
   def mkStream: Stream[F, Unit] = {
     KafkaConsumer
       .stream(consumerSettings)

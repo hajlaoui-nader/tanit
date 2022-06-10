@@ -77,7 +77,7 @@ lazy val core = (project in file("modules/core"))
       Libraries.http4sJwtAuth,
       Libraries.javaxCrypto,
       Libraries.log4cats,
-      Libraries.logback % Runtime,
+      Libraries.logback,
       Libraries.monocleCore,
       Libraries.newtype,
       Libraries.redis4catsEffects,

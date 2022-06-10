@@ -97,6 +97,4 @@ docker-compose up
 ```
 
 ### TODO
-- fix logger
-- extract http in seperate classes and package
 - opensearch integration

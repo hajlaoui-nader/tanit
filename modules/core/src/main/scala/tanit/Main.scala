@@ -13,7 +13,7 @@ object Main extends IOApp.Simple {
   implicit val logger = Slf4jLogger.getLogger[IO]
 
   override def run: IO[Unit] = {
-    val kafkaConfig     = KafkaConfig(List("localhost:9092"), "tanit_consumer")
+    val kafkaConfig     = KafkaConfig(List("localhost:9092"), "tanit_consumer", 500)
     val usersTopic      = "users"
     val kafkaProperties = Map.empty[String, String]
     val producer        = new UserProducer[IO](kafkaConfig, usersTopic)

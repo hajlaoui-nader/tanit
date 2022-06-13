@@ -27,7 +27,7 @@ class UserStream[F[_]: Async: Logger](kafkaConfig: KafkaConfig, topic: String, p
         processRecord(committable.record)
           .as(committable.offset)
       }
-      .through(commitBatchWithin(500, 5.seconds))
+      .through(commitBatchWithin(kafkaConfig.commitBatchWithin, 5.seconds))
   }
 
   private def processRecord(record: ConsumerRecord[String, String]): F[Unit] =

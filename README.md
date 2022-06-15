@@ -97,4 +97,5 @@ docker-compose up
 ```
 
 ### TODO
+- add tests (weaver)
 - opensearch integration

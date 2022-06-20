@@ -8,6 +8,7 @@ trait Users[F[_]] {
   def find(id: UserId): F[Option[User]]
 }
 
+// TODO [nh] implement me
 final class UserService[F[_]: Sync]() extends Users[F] {
   override def create(user: User): F[User] = ???
 

@@ -4,7 +4,7 @@ Sandbox project for pure functional scala with cats.
 
 ## Getting Started
 
-You will need to have Git, Java 8, and [SBT][sbt] installed.
+You will need to have Git, Java 8, and [sbt] installed.
 
 Start SBT using the `sbt` command to enter SBT's *interactive mode*
 (`>` prompt):

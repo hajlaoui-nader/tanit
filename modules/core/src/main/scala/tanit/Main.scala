@@ -8,6 +8,8 @@ import tanit.infra.streams.{ UserProducer, UserStream }
 
 import cats.effect.{ IO, IOApp }
 import org.typelevel.log4cats.slf4j.Slf4jLogger
+import tanit.domain.UserService
+import tanit.infra.repository.OpensearchUsers
 
 object Main extends IOApp.Simple {
   implicit val logger = Slf4jLogger.getLogger[IO]
@@ -22,6 +24,9 @@ object Main extends IOApp.Simple {
 
     val healthRoute = new HealthRoute[IO]().routes
     val mkServer    = new WebServer[IO](healthRoute).mkServer
+
+    val usersRepository = new OpensearchUsers[IO]()
+    val userService     = new UserService(usersRepository)
 
     logger.info("starting up") *> fs2.Stream
       .resource(mkServer)

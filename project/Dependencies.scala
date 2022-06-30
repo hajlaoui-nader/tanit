@@ -16,6 +16,7 @@ object Dependencies {
     val fs2Kafka      = "2.5.0-M3"
     val http4s        = "0.23.1"
     val http4sJwtAuth = "1.0.0"
+    val elastic4s     = "8.2.0"
     val log4cats      = "2.3.1"
     val monocle       = "3.1.0"
     val newtype       = "0.4.4"
@@ -64,12 +65,18 @@ object Dependencies {
     val derevoCats  = derevo("cats")
     val derevoCirce = derevo("circe-magnolia")
 
+    // http4s
     val http4sDsl    = http4s("dsl")
     val http4sServer = http4s("ember-server")
     val http4sClient = http4s("ember-client")
     val http4sCirce  = http4s("circe")
 
     val http4sJwtAuth = "dev.profunktor" %% "http4s-jwt-auth" % V.http4sJwtAuth
+
+    // elastic4s
+    val elastic4sCore =  "com.sksamuel.elastic4s" %% "elastic4s-core" % V.elastic4s
+    val elastic4sCirce = "com.sksamuel.elastic4s" %% "elastic4s-json-circe" % V.elastic4s
+    val elastic4sCatsEffect = "com.sksamuel.elastic4s" %% "elastic4s-effect-cats" % V.elastic4s
 
     val monocleCore = "dev.optics" %% "monocle-core" % V.monocle
 

@@ -25,8 +25,7 @@ object Main extends IOApp.Simple {
     val healthRoute = new HealthRoute[IO]().routes
     val mkServer    = new WebServer[IO](healthRoute).mkServer
 
-    val usersRepository = new OpensearchUsers[IO]()
-    val userService     = new UserService(usersRepository)
+    val userService = new UserService(new OpensearchUsers[IO]())
 
     logger.info("starting up") *> fs2.Stream
       .resource(mkServer)

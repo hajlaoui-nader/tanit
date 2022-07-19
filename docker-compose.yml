@@ -26,7 +26,7 @@ services:
       KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
 
   opensearch-node1:
-    image: cosmo-docker-all.artifact.cloud.socrate.vsct.fr/cosmo/opensearch:1.3.2
+    image: opensearchproject/opensearch:1.3.2
     container_name: opensearch-node1
     environment:
       - cluster.name=opensearch-cluster
@@ -52,7 +52,7 @@ services:
       - opensearch-net
 
   opensearch-dashboards:
-    image: cosmo-docker-all.artifact.cloud.socrate.vsct.fr/cosmo/opensearch-dashboards:1.3.2
+    image: opensearchproject/opensearch-dashboards:1.3.2
     container_name: opensearch-dashboards
     ports:
       - 5601:5601

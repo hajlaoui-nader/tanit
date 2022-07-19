@@ -75,6 +75,7 @@ object Dependencies {
 
     // elastic4s
     val elastic4sCore =  "com.sksamuel.elastic4s" %% "elastic4s-core" % V.elastic4s
+    val elastic4sClient = "com.sksamuel.elastic4s" %% "elastic4s-client-esjava" % V.elastic4s
     val elastic4sCirce = "com.sksamuel.elastic4s" %% "elastic4s-json-circe" % V.elastic4s
     val elastic4sCatsEffect = "com.sksamuel.elastic4s" %% "elastic4s-effect-cats" % V.elastic4s
 

@@ -76,6 +76,7 @@ lazy val core = (project in file("modules/core"))
       Libraries.http4sCirce,
       Libraries.http4sJwtAuth,
       Libraries.elastic4sCore,
+      Libraries.elastic4sClient,
       Libraries.elastic4sCatsEffect,
       Libraries.elastic4sCirce,
       Libraries.javaxCrypto,

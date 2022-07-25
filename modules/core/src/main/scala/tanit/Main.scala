@@ -42,12 +42,11 @@ object Main extends IOApp.Simple {
       .flatMap { _ =>
         fs2.Stream
           .resource(opensearchClientResource)
-          .map(opensearchClient => new UserService(new OpensearchUsers[IO](opensearchClient)))
-          .flatMap(
-            userService =>
-              new UserStream[IO](kafkaConfig, usersTopic, kafkaProperties).mkStream
-                .concurrently(producerEveryNSeconds)
-          )
+          .flatMap { opensearchClient =>
+            val userService = new UserService(new OpensearchUsers[IO](opensearchClient))
+            new UserStream[IO](kafkaConfig, usersTopic, kafkaProperties).mkStream
+              .concurrently(producerEveryNSeconds)
+          }
       }
       .compile
       .drain

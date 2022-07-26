@@ -30,7 +30,7 @@ object Main extends IOApp.Simple {
     val healthRoute = new HealthRoute[IO]().routes
     val mkServer    = new WebServer[IO](healthRoute).mkServer
 
-    // TODO [NH] move to seperate class
+    // TODO [NH] move to seperate classs
     def opensearchClientResource: Resource[IO, ElasticClient] =
       Resource.make {
         val props = ElasticProperties(s"${opensearchConfig.host}:${opensearchConfig.port}")

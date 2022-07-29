@@ -98,4 +98,4 @@ docker-compose up
 
 ### TODO
 - add tests (weaver)
-- opensearch repository + IT
+- opensearch repository + IT test

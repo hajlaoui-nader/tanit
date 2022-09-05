@@ -1,11 +1,11 @@
 package tanit.infra.api
 
 import cats.effect._
-import weaver._
 import org.http4s.Method._
 import org.http4s._
 import org.http4s.client.dsl.io._
 import org.http4s.syntax.literals._
+import weaver._
 // import io.circe._
 // import io.circe.syntax._
 // import org.http4s.circe._

@@ -2,18 +2,17 @@ package tanit
 
 import scala.concurrent.duration._
 
+import tanit.domain.UserService
 import tanit.infra.api._
 import tanit.infra.config._
+import tanit.infra.repository.OpensearchUsers
 import tanit.infra.streams.{ UserProducer, UserStream }
 
-import cats.effect.{ IO, IOApp }
-import org.typelevel.log4cats.slf4j.Slf4jLogger
-import tanit.domain.UserService
-import tanit.infra.repository.OpensearchUsers
 import cats.effect.kernel.Resource
-import com.sksamuel.elastic4s.ElasticClient
-import com.sksamuel.elastic4s.ElasticProperties
+import cats.effect.{ IO, IOApp }
 import com.sksamuel.elastic4s.http.JavaClient
+import com.sksamuel.elastic4s.{ElasticClient, ElasticProperties}
+import org.typelevel.log4cats.slf4j.Slf4jLogger
 
 object Main extends IOApp.Simple {
   implicit val logger = Slf4jLogger.getLogger[IO]
@@ -44,7 +43,7 @@ object Main extends IOApp.Simple {
           .resource(opensearchClientResource)
           .flatMap { opensearchClient =>
             val userService = new UserService(new OpensearchUsers[IO](opensearchClient))
-            new UserStream[IO](kafkaConfig, usersTopic, kafkaProperties).mkStream
+            new UserStream[IO](kafkaConfig, usersTopic, kafkaProperties)(userService).mkStream
               .concurrently(producerEveryNSeconds)
           }
       }

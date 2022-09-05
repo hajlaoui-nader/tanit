@@ -9,8 +9,9 @@ import cats.implicits._
 import fs2.Stream
 import fs2.kafka._
 import org.typelevel.log4cats.Logger
+import tanit.domain.UserService
 
-class UserStream[F[_]: Async: Logger](kafkaConfig: KafkaConfig, topic: String, properties: Map[String, String]) {
+class UserStream[F[_]: Async: Logger](kafkaConfig: KafkaConfig, topic: String, properties: Map[String, String])(userService: UserService[F]) {
 
   private val consumerSettings: ConsumerSettings[F, String, String] = ConsumerSettings[F, String, String]
     .withAutoOffsetReset(AutoOffsetReset.Earliest)
@@ -23,7 +24,7 @@ class UserStream[F[_]: Async: Logger](kafkaConfig: KafkaConfig, topic: String, p
       .stream(consumerSettings)
       .subscribeTo(topic)
       .records
-      .mapAsync(2) { committable =>
+      .mapAsync(1) { committable =>
         processRecord(committable.record)
           .as(committable.offset)
       }

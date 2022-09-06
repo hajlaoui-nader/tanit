@@ -2,14 +2,14 @@ package tanit.infra.repository
 
 import scala.util.control.NoStackTrace
 
-import tanit.domain.{Users, data}
+import tanit.domain.{ Users, data }
 import tanit.infra.repository
 
 import cats.effect.kernel.Async
 import cats.implicits._
 import com.sksamuel.elastic4s.circe._
 import com.sksamuel.elastic4s.requests.common.RefreshPolicy
-import com.sksamuel.elastic4s.{ElasticClient, RequestFailure, RequestSuccess}
+import com.sksamuel.elastic4s.{ ElasticClient, RequestFailure, RequestSuccess }
 import io.circe.generic.auto._
 
 import CatsEffectInstancesExecutor._

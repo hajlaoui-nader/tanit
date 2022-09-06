@@ -11,7 +11,7 @@ import tanit.infra.streams.{ UserProducer, UserStream }
 import cats.effect.kernel.Resource
 import cats.effect.{ IO, IOApp }
 import com.sksamuel.elastic4s.http.JavaClient
-import com.sksamuel.elastic4s.{ElasticClient, ElasticProperties}
+import com.sksamuel.elastic4s.{ ElasticClient, ElasticProperties }
 import org.typelevel.log4cats.slf4j.Slf4jLogger
 
 object Main extends IOApp.Simple {
@@ -33,7 +33,9 @@ object Main extends IOApp.Simple {
     def opensearchClientResource: Resource[IO, ElasticClient] =
       Resource.make {
         val props = ElasticProperties(s"${opensearchConfig.host}:${opensearchConfig.port}")
-        IO.delay { ElasticClient(JavaClient(props)) }
+        IO.delay { 
+        logger.info("opening opensearch connection")
+        ElasticClient(JavaClient(props)) }
       }(c => IO.delay { c.close() })
 
     logger.info("starting up") *> fs2.Stream

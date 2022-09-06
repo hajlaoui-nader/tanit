@@ -9,8 +9,8 @@ import com.sksamuel.elastic4s
 import com.sksamuel.elastic4s._
 import com.sksamuel.elastic4s.circe._
 import com.sksamuel.elastic4s.http._
-import com.sksamuel.elastic4s.requests.indexes.{CreateIndexRequest, IndexRequest}
-import com.sksamuel.elastic4s.requests.searches.{SearchRequest, SearchResponse}
+import com.sksamuel.elastic4s.requests.indexes.{ CreateIndexRequest, IndexRequest }
+import com.sksamuel.elastic4s.requests.searches.{ SearchRequest, SearchResponse }
 import io.circe.generic.auto._
 
 case class ModernArtist(name2: String)

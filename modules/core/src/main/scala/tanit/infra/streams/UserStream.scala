@@ -11,7 +11,9 @@ import fs2.kafka._
 import org.typelevel.log4cats.Logger
 import tanit.domain.UserService
 
-class UserStream[F[_]: Async: Logger](kafkaConfig: KafkaConfig, topic: String, properties: Map[String, String])(userService: UserService[F]) {
+class UserStream[F[_]: Async: Logger](kafkaConfig: KafkaConfig, topic: String, properties: Map[String, String])(
+    userService: UserService[F]
+) {
 
   private val consumerSettings: ConsumerSettings[F, String, String] = ConsumerSettings[F, String, String]
     .withAutoOffsetReset(AutoOffsetReset.Earliest)

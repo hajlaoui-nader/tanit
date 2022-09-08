@@ -33,9 +33,10 @@ object Main extends IOApp.Simple {
     def opensearchClientResource: Resource[IO, ElasticClient] =
       Resource.make {
         val props = ElasticProperties(s"${opensearchConfig.host}:${opensearchConfig.port}")
-        IO.delay { 
-        logger.info("opening opensearch connection")
-        ElasticClient(JavaClient(props)) }
+        IO.delay {
+          logger.info("opening opensearch connection")
+          ElasticClient(JavaClient(props))
+        }
       }(c => IO.delay { c.close() })
 
     logger.info("starting up") *> fs2.Stream

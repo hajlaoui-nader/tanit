@@ -15,9 +15,11 @@ class UserProducer[F[_]: Async: Logger](kafkaConfig: KafkaConfig, topic: String)
     ProducerSettings[F, String, String]
       .withBootstrapServers(kafkaConfig.bootstrapServers.mkString(","))
 
-  def produce =
-    KafkaProducer
+    private val stream = KafkaProducer
       .stream(producerSettings)
+
+  def produce =
+    stream
       .evalMap { producer =>
         val key    = UUID.randomUUID().toString
         val value  = UUID.randomUUID().toString

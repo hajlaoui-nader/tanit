@@ -99,4 +99,5 @@ docker-compose up
 ### TODO
 - set avro serdes
 - add tests (weaver)
-- opensearch repository + IT test
+- IT test
+- fix kafka producer/consumer new connections

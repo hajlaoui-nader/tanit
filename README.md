@@ -1,10 +1,13 @@
 # Scala with Cats Code
 
-Sandbox project for pure functional scala with cats.
+POC for pure functional scala with cats. The applicaiton runs `fs2` streams in parallel,
+one for producing events in kafka and the other for reading them and storing them in `opensearch` database. Hexagonal architecture is used to separate the business logic from the infrastructure.
+
+
 
 ## Getting Started
 
-You will need to have Git, Java 8, and [sbt] installed.
+You will need to have `git`, `Java 11`, and `sbt` installed.
 
 Start SBT using the `sbt` command to enter SBT's *interactive mode*
 (`>` prompt):
@@ -75,7 +78,7 @@ To run Unit Tests:
 sbt test
 ```
 
-To run Integration Tests we need to run both `PostgreSQL` and `Redis`:
+To run Integration Tests: 
 
 ```
 docker-compose up

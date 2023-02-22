@@ -33,12 +33,13 @@ final class WebServer[F[_]: Async: log4cats.Logger](routes: HttpRoutes[F]) {
 
   private val httpApp = loggers(middleware(routes).orNotFound)
 
+  // TODO [NH] make configurable
   val mkServer = EmberServerBuilder
     .default[F]
     .withHost(Host.fromString("0.0.0.0").get)
     .withPort(Port.fromInt(8080).get)
     .withHttpApp(httpApp)
     .build
-    .evalTap(_ => log4cats.Logger[F].info(s"\n${Banner.mkString("\n")}\nHTTP Server started"))
+    .evalTap(_ => log4cats.Logger[F].info(s"\n${Banner.mkString("\n")}\n\nHTTP Server started: http://localhost:8080"))
 
 }

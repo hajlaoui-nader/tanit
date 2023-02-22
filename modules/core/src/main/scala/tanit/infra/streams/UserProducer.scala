@@ -15,6 +15,7 @@ class UserProducer[F[_]: Async: Logger](kafkaConfig: KafkaConfig, topic: String)
     ProducerSettings[F, String, String]
       .withBootstrapServers(kafkaConfig.bootstrapServers.mkString(","))
 
+    
     private val stream = KafkaProducer
       .stream(producerSettings)
 
@@ -26,5 +27,7 @@ class UserProducer[F[_]: Async: Logger](kafkaConfig: KafkaConfig, topic: String)
         val record = ProducerRecord(topic, key, value)
         producer.produce(ProducerRecords.one(record)) <* Logger[F].info(s"produced record with key $key")
       }
+      .compile
+      .drain
 
 }

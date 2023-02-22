@@ -24,7 +24,7 @@ object Main extends IOApp.Simple {
     val kafkaProperties  = Map.empty[String, String]
     val producer         = new UserProducer[IO](kafkaConfig, usersTopic)
 
-    val producerEveryNSeconds = fs2.Stream.awakeEvery[IO](5.seconds).flatMap(_ => producer.produce)
+    val producerEveryNSeconds = fs2.Stream.awakeEvery[IO](5.seconds).evalTap(_ => producer.produce)
 
     val healthRoute = new HealthRoute[IO]().routes
     val mkServer    = new WebServer[IO](healthRoute).mkServer
@@ -46,8 +46,8 @@ object Main extends IOApp.Simple {
           .resource(opensearchClientResource)
           .flatMap { opensearchClient =>
             val userService = new UserService(new OpensearchUsers[IO](opensearchClient))
-            new UserStream[IO](kafkaConfig, usersTopic, kafkaProperties)(userService).mkStream
-              .concurrently(producerEveryNSeconds)
+            new UserStream[IO](kafkaConfig, usersTopic, kafkaProperties)(userService).mkStream.parZip(producerEveryNSeconds)
+              // .concurrently(producerEveryNSeconds)
           }
       }
       .compile

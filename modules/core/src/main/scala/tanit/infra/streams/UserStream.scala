@@ -21,11 +21,13 @@ class UserStream[F[_]: Async: Logger](kafkaConfig: KafkaConfig, topic: String, p
     .withProperties(properties)
     .withGroupId(kafkaConfig.groupId)
 
-  def mkStream: Stream[F, Unit] = {
-    KafkaConsumer
+    private val stream =     KafkaConsumer
       .stream(consumerSettings)
       .subscribeTo(topic)
       .records
+
+  def mkStream: Stream[F, Unit] = {
+    stream
       .mapAsync(1) { committable =>
         processRecord(committable.record)
           .as(committable.offset)
@@ -33,6 +35,8 @@ class UserStream[F[_]: Async: Logger](kafkaConfig: KafkaConfig, topic: String, p
       .through(commitBatchWithin(kafkaConfig.commitBatchWithin, 5.seconds))
   }
 
-  private def processRecord(record: ConsumerRecord[String, String]): F[Unit] =
+  private def processRecord(record: ConsumerRecord[String, String]): F[Unit] = {
+    // TODO [NH] call userService
     Logger[F].info(s"Received record: ${record.value}")
+  }
 }
